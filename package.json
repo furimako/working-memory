@@ -1,0 +1,25 @@
+{
+    "name": "working-memory",
+    "version": "0.0.1",
+    "description": "Web-based Memorandum working offline like you",
+    "author": "furimako <furimako@gmail.com>",
+    "license": "MIT",
+    "repository": "github:furimako/working-memory",
+    "engines": {
+        "node": ">=12.13.1 <13.0.0"
+    },
+    "dependencies": {
+        "bulma": "^0.8.2",
+        "express": "^4.17.1",
+        "express-session": "^1.17.1",
+        "hbs": "^4.1.1",
+        "node-sass": "^4.14.1",
+        "node-utils": "file:../node-utils",
+        "pbkdf2-password": "^1.2.1"
+    },
+    "scripts": {
+        "css-build": "node-sass --omit-source-map-url src/sass/main.scss public/dist/css/main.css",
+        "css-watch": "npm run css-build -- --watch",
+        "start": "node app.js && npm run css-watch"
+    }
+}

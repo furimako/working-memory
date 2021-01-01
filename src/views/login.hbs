@@ -1,0 +1,31 @@
+{{> head}}
+
+<section class="section">
+    <div class="container">
+        <h1 class="title">Working Memory</h1>
+        <p class="subtitle">Web-based Memorandum working offline like you</p>
+
+        {{{message}}}
+        Try accessing <a href="/restricted">/restricted</a>, then authenticate with "furimako@gmail.com" and "foobar".
+
+        <form method="post" action="/login">
+            <div class="field">
+                <div class="control">
+                    <input class="input" type="email" name="email" placeholder="Email" required>
+                </div>
+            </div>
+            <div class="field">
+                <p class="control">
+                    <input class="input" type="password" name="password" placeholder="Password" required>
+                </p>
+            </div>
+            <div class="field">
+                <p class="control">
+                    <button class="button" type="submit">Sign in</button>
+                </p>
+            </div>
+        </form>
+    </div>
+</section>
+
+{{> foot}}
