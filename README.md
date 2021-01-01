@@ -3,7 +3,7 @@
 Web-based Memorandum working offline like you.
 
 ## Components
-- Express.js
+− Node.js (Express.js)
 - Vue.js
 - Handlebars (template engine)
 - Bulma (CSS framework)

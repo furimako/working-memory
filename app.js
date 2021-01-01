@@ -11,6 +11,7 @@ app.set('views', path.join(__dirname, 'src/views'))
 hbs.registerPartials(`${__dirname}/src/views/partials`)
 
 app.use(express.static('public'))
+app.use('/vue', express.static('node_modules/vue/dist'))
 app.use(express.urlencoded({ extended: false }))
 app.use(session({
     resave: false, // don't save session if unmodified
@@ -55,14 +56,10 @@ function authenticate(name, pass, fn) {
         console.log('authenticating %s:%s', name, pass)
     }
     const user = users[name]
-    console.log(`user: ${user}`)
-    console.log(`user: ${JSON.stringify(user)}`)
     if (!user) {
         return fn(new Error('cannot find user'))
     }
     hash({ password: pass, salt: user.salt }, (err, pass, salt, hash) => {
-        console.log(`hash: ${hash}, user.hash: ${user.hash}`)
-        
         if (err) return fn(err)
         if (hash === user.hash) return fn(null, user)
         fn(new Error('invalid password'))
@@ -83,7 +80,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/restricted', restrict, (req, res) => {
-    res.send('Wahoo! restricted area, click to <a href="/logout">logout</a>')
+    res.render('main')
 })
 
 app.get('/logout', (req, res) => {
@@ -109,15 +106,11 @@ app.post('/login', (req, res) => {
                 // in the session store to be retrieved,
                 // or in this case the entire user object
                 req.session.user = user
-                req.session.success = `Authenticated as ${user.name
-                } click to <a href="/logout">logout</a>. `
-          + ' You may now access <a href="/restricted">/restricted</a>.'
+                req.session.success = `Authenticated as ${user.name} click to <a href="/logout">logout</a>. You may now access <a href="/restricted">/restricted</a>.`
                 res.redirect('back')
             })
         } else {
-            req.session.error = 'Authentication failed, please check your '
-        + ' email and password.'
-        + ' (use "furimako@gmail.com" and "foobar")'
+            req.session.error = 'Authentication failed. (use "furimako@gmail.com" and "foobar")'
             res.redirect('/login')
         }
     })
