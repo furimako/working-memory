@@ -1,12 +1,20 @@
 {{> head}}
-
 <section class="section">
     <div class="container">
         Wahoo! restricted area, click to <a href="/logout">logout</a>
-        <div id="app"></div>
-        <script src="/vue/vue.js"></script>
+        <div id="app">
+            <h2>${title}</h2>
+            <textarea autofocus placeholder="insert your note .." v-model="note.text"></textarea>
+            <button class="button" @click="addNote">Submit</button>
+            <div v-for="(note, index) in notes">
+                <div class ="top">
+                    <button class="close" @click="removeNote(index)"></button>
+                    <i>${note.date}</i>
+                </div>
+                ${note.text}
+            </div>
+        </div>
         <script src="/js/main.js"></script>
     </div>
 </section>
-
 {{> foot}}
